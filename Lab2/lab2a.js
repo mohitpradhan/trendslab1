@@ -32,7 +32,30 @@ var earthPhysics;
 console.log(days[0]);
 //html elements
 var pTodayDate = document.getElementById("p--today-date");
+var buttonBirthday = document.getElementById("button--birthday");
+var inputDatePicker = document.getElementById("input--date-picker");
+var pBirthdayMessage = document.getElementById("p--birthday-message");
 //today as a date
 var today = new Date();
 console.log(today.getMonth());
 pTodayDate.innerHTML = "Today is " + today.getMonth() + " " + months[today.getMonth()] + " " + today.getDate() + ", " + today.getFullYear();
+//part 2
+buttonBirthday.onclick = function () {
+    //get birthday from input tag
+    var userDay = inputDatePicker.value;
+    var userBdayDate = new Date(userDay);
+    //output birthday message
+    pBirthdayMessage.innerHTML = makeDateString(userBdayDate);
+};
+function makeDateString(inputDate) {
+    //if today is user's birthday
+    if ((inputDate.getDate() === today.getDate()) && (inputDate.getMonth() === today.getMonth())) {
+        return "Happy Birthday!!!";
+    }
+    //if today is not the user's birthday
+    var thisYearsBirthday = new Date();
+    thisYearsBirthday.setDate(inputDate.getDate());
+    thisYearsBirthday.setFullYear(today.getFullYear());
+    thisYearsBirthday.setMonth(inputDate.getMonth());
+    return "Your birthday is " + days[thisYearsBirthday.getDay()] + " " + months[inputDate.getMonth()] + " " + inputDate.getDate() + ", " + today.getFullYear();
+}
